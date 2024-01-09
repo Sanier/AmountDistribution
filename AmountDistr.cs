@@ -6,9 +6,8 @@ namespace AmountDistribution
         public void AmountDistrub(string name, float sum, string[] sums)
         {
             float koef = sum / sums.Select(float.Parse).Sum();
-
             float num = 0;
-            name.ToLower();
+            name.ToLowerInvariant();
 
             switch(name)
             {
@@ -34,13 +33,15 @@ namespace AmountDistribution
                     num = sum;
                     for (int i = 0; i < sums.Length; i++)
                     {
-                        if (num >= float.Parse(sums[i]))
+                        float parsedSum = float.Parse(sums[i]);
+
+                        if (num >= parsedSum)
                         {
-                            num -= float.Parse(sums[i]);
+                            num -= parsedSum;
                         }
                         else if (num > 0)
                         {
-                            sums[i] = Convert.ToString(num);
+                            sums[i] = num.ToString();
                             num = 0;
                         }
                         else
@@ -62,13 +63,15 @@ namespace AmountDistribution
 
                     for (int i = 0; i < sums.Length; i++)
                     {
-                        if (num >= float.Parse(result[i]))
+                        float parsedSum = float.Parse(result[i]);
+
+                        if (num >= parsedSum)
                         {
-                            num -= float.Parse(result[i]);
+                            num -= parsedSum;
                         }
                         else if (num > 0)
                         {
-                            result[i] = Convert.ToString(num);
+                            result[i] = num.ToString();
                             num = 0;
                         }
                         else
